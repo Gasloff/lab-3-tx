@@ -1,5 +1,6 @@
 package com.luxoft.springdb.lab3.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import com.luxoft.springdb.lab3.dao.CountryDao;
@@ -14,12 +15,14 @@ import org.springframework.transaction.annotation.Propagation;
 
 import java.util.List;
 
+@Service
 public class ProgrammaticTransactionCountryServiceImpl implements ProgrammaticTransactionCountryService {
     private TransactionTemplate transactionTemplate;
     private CountryDao dao;
 
-    public ProgrammaticTransactionCountryServiceImpl(PlatformTransactionManager transactionManager) {
+    public ProgrammaticTransactionCountryServiceImpl(PlatformTransactionManager transactionManager, CountryDao dao) {
         this.transactionTemplate = new TransactionTemplate(transactionManager);
+        this.dao = dao;
     }
 
     public Country getCountryByName(final String name) {
